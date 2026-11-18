@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09090d">
+  <meta name="description" content="Thalison Music — seu espaço pessoal para descobrir e ouvir música.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Thalison Music">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Thalison Music</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Thalison Music início"><span class="brand-mark">♫</span><span>THALISON<span class="brand-light"> MUSIC</span></span></a>
+      <button id="refreshBtn" class="icon-button" aria-label="Atualizar catálogo" title="Atualizar catálogo">↻</button>
+    </header>
+
+    <main>
+      <section id="homeView" class="view active">
+        <div class="greeting"><p class="eyebrow">SEU SOM, SEU MOMENTO</p><h1>Descubra algo<br><span>novo hoje.</span></h1><p class="subtle">Descubra músicas no Audius e encontre seus artistas favoritos no YouTube.</p></div>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">EM ALTA AGORA</p><h2>Mais ouvidas</h2></div><button class="text-button" data-go="buscar">Explorar</button></div>
+          <div id="trendingList" class="track-list"><div class="loading">Carregando músicas…</div></div>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">RECÉM-DESCOBERTAS</p><h2>Novidades</h2></div><button class="text-button" id="newReleasesBtn">Atualizar</button></div>
+          <div id="newList" class="track-list"><div class="loading">Buscando novidades…</div></div>
+        </section>
+        <p class="source-note">Audius para streaming de faixas disponíveis e player oficial do YouTube para vídeos escolhidos por você.</p>
+      </section>
+
+      <section id="searchView" class="view">
+        <div class="page-heading"><p class="eyebrow">ENCONTRE SEU SOM</p><h1>Pesquisar</h1></div>
+        <form id="searchForm" class="search-form"><span>⌕</span><input id="searchInput" type="search" placeholder="Música, artista ou gênero" autocomplete="off"><button type="submit">Buscar</button></form>
+        <div id="searchResults" class="track-list empty-state">Pesquise para encontrar músicas no Audius.</div>
+        <section class="youtube-section" aria-label="Pesquisar no YouTube">
+          <p class="eyebrow">MAIS MÚSICAS</p>
+          <h2>Encontrar no YouTube</h2>
+          <p class="youtube-help">Pesquise funks, lançamentos e artistas conhecidos. Abra um resultado no YouTube e cole o link do vídeo abaixo para reproduzir aqui.</p>
+          <form id="youtubeSearchForm" class="youtube-form">
+            <input id="youtubeSearchInput" type="search" placeholder="Ex.: funk, MC Ryan SP, Anitta" autocomplete="off">
+            <button type="submit">Pesquisar</button>
+          </form>
+          <form id="youtubeLinkForm" class="youtube-form youtube-link-form">
+            <input id="youtubeLinkInput" type="url" placeholder="Cole aqui o link do vídeo do YouTube" autocomplete="url">
+            <button type="submit">Tocar</button>
+          </form>
+          <div id="youtubeFrameWrap" class="youtube-frame-wrap hidden">
+            <button id="closeYoutube" class="youtube-close" type="button">Fechar vídeo ×</button>
+            <div class="youtube-frame-box"><iframe id="youtubeFrame" title="Player oficial do YouTube" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="libraryView" class="view">
+        <div class="page-heading"><p class="eyebrow">GUARDADO POR VOCÊ</p><h1>Sua biblioteca</h1></div>
+        <div class="library-tabs"><button class="tab active" data-library="favorites">♥ Favoritas</button><button class="tab" data-library="recent">◷ Tocadas</button></div>
+        <div id="libraryList" class="track-list"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação principal">
+      <button class="nav-item active" data-view="inicio"><span>⌂</span>Início</button>
+      <button class="nav-item" data-view="buscar"><span>⌕</span>Buscar</button>
+      <button class="nav-item" data-view="biblioteca"><span>▤</span>Biblioteca</button>
+    </nav>
+
+    <section id="playerBar" class="player-bar hidden" aria-label="Tocando agora">
+      <div class="player-progress"><span id="progressFill"></span></div>
+      <img id="playerArt" src="icon.svg" alt="Capa da música">
+      <div class="player-meta"><strong id="playerTitle">Escolha uma música</strong><span id="playerArtist">Thalison Music</span></div>
+      <button id="favoriteCurrent" class="player-action" aria-label="Favoritar">♡</button>
+      <button id="playPauseBtn" class="play-button" aria-label="Reproduzir ou pausar">▶</button>
+      <button id="expandPlayer" class="player-action" aria-label="Abrir player">⌃</button>
+    </section>
+  </div>
+
+  <div id="fullPlayer" class="full-player" aria-hidden="true">
+    <button id="closePlayer" class="close-player" aria-label="Fechar player">⌄</button>
+    <p class="eyebrow">TOCANDO AGORA</p>
+    <img id="fullArt" class="full-art" src="icon.svg" alt="Capa do álbum">
+    <div class="full-track-meta"><div><h2 id="fullTitle">Escolha uma música</h2><p id="fullArtist">Thalison Music</p></div><button id="fullFavorite" class="player-action big" aria-label="Favoritar">♡</button></div>
+    <div class="time-row"><span id="currentTime">0:00</span><span id="totalTime">0:00</span></div>
+    <input id="seekBar" class="seek-bar" type="range" min="0" max="100" value="0" aria-label="Posição da música">
+    <div class="main-controls"><button id="backBtn" aria-label="Voltar 10 segundos">↶</button><button id="fullPlayPause" class="big-play" aria-label="Reproduzir ou pausar">▶</button><button id="forwardBtn" aria-label="Avançar 10 segundos">↷</button></div>
+    <p class="player-credit">Reprodução fornecida pelo Audius</p>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <audio id="audio" preload="none"></audio>
+  <script src="app.js"></script>
+</body>
+</html>
